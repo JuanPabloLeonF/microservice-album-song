@@ -1,4 +1,4 @@
 env/
 instance/
 public/
-.idea/
+.idea*
