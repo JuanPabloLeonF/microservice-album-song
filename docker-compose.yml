@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+
+  database-mysql:
+    image: mysql:9.1.0
+    container_name: database-mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - cinemusic-network
+    restart: always
+
+  microservices-album-song:
+    build:
+      context: .
+      dockerfile: ./docker/microservices/Dockerfile
+    container_name: microservices-album-song
+    environment:
+      HOST: ${HOST}
+      PORT: ${PORT}
+      DATABASE_URL: ${DATABASE_URL}
+      DEBUG: ${DEBUG}
+    ports:
+      - "3000:3000"
+    networks:
+      - cinemusic-network
+    depends_on:
+      - database-mysql
+    restart: unless-stopped
+
+networks:
+  cinemusic-network:
+    driver: bridge
+
+volumes:
+  db-data:

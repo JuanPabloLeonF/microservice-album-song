@@ -14,7 +14,7 @@ from app.infrastructure.outputs.sqlites.repository.ISongRepository import ISongR
 from app.infrastructure.outputs.sqlites.repository.SongRepositoryImplementation import \
     SongRepositoryImplementation
 from app.domain.spi.ISongPersistencePort import ISongPersistencePort
-from configurationApp.AppAlbumModule import AppAlbumModule
+from app.configurationApp.AppAlbumModule import AppAlbumModule
 
 
 class AppSongModule(Module):

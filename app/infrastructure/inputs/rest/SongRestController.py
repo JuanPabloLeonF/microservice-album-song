@@ -1,7 +1,7 @@
 import injector
 import json
-from flask import Blueprint, request, jsonify
-from configurationApp.AppSongModule import AppSongModule
+from flask import Blueprint, request
+from app.configurationApp.AppSongModule import AppSongModule
 from app.application.handlers.ISongHandler import ISongHandler
 
 songRoute = Blueprint('songs', __name__, url_prefix='/songs')
