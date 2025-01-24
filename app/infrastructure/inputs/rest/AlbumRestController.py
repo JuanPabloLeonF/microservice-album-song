@@ -3,7 +3,7 @@ import json
 from flask import Blueprint, request
 
 from app.application.handlers.IAlbumHandler import IAlbumHandler
-from app.configurationApp.AppAlbumModule import AppAlbumModule
+from configurationApp.AppAlbumModule import AppAlbumModule
 
 albumRoute = Blueprint('albums', __name__, url_prefix='/albums')
 iAlbumHandler = injector.Injector([AppAlbumModule]).get(IAlbumHandler)
