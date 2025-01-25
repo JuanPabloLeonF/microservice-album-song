@@ -1,4 +1,4 @@
-from app.infrastructure.outputs.sqlites.entities.SongEntity import SongEntity
+from app.infrastructure.outputs.mysql.entities.SongEntity import SongEntity
 from app.domain.models.SongModel import SongModel
 
 class ISongEntityMapper:

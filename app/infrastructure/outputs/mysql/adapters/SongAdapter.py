@@ -1,8 +1,8 @@
 from app.domain.spi.ISongPersistencePort import ISongPersistencePort
-from app.infrastructure.outputs.sqlites.repository.ISongRepository import ISongRepository
-from app.infrastructure.outputs.sqlites.mappers.ISongEntityMapper import ISongEntityMapper
+from app.infrastructure.outputs.mysql.repository.ISongRepository import ISongRepository
+from app.infrastructure.outputs.mysql.mappers.ISongEntityMapper import ISongEntityMapper
 from app.domain.models.SongModel import SongModel
-from app.infrastructure.outputs.sqlites.entities.SongEntity import SongEntity
+from app.infrastructure.outputs.mysql.entities.SongEntity import SongEntity
 
 class SongAdapter(ISongPersistencePort):
 

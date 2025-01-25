@@ -6,10 +6,10 @@ from app.application.mappers.IAlbumResponseMapper import IAlbumResponseMapper
 from app.domain.apis.IAlbumServicePort import IAlbumServicePort
 from app.domain.spi.IAlbumPersistencePort import IAlbumPersistencePort
 from app.domain.useCases.AlbumUseCases import AlbumUseCase
-from app.infrastructure.outputs.sqlites.adapters.AlbumAdapter import AlbumAdapter
-from app.infrastructure.outputs.sqlites.mappers.IAlbumEntityMapper import IAlbumEntityMapper
-from app.infrastructure.outputs.sqlites.repository.AlbumRepositoryImplementation import AlbumRepositoryImplementation
-from app.infrastructure.outputs.sqlites.repository.IAlbumRepository import IAlbumRepository
+from app.infrastructure.outputs.mysql.adapters.AlbumAdapter import AlbumAdapter
+from app.infrastructure.outputs.mysql.mappers.IAlbumEntityMapper import IAlbumEntityMapper
+from app.infrastructure.outputs.mysql.repository.AlbumRepositoryImplementation import AlbumRepositoryImplementation
+from app.infrastructure.outputs.mysql.repository.IAlbumRepository import IAlbumRepository
 from app.application.mappers.IAlbumRequestMapper import IAlbumRequestMapper
 
 

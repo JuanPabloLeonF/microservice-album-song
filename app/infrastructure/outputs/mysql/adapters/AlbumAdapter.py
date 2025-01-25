@@ -1,8 +1,8 @@
 from app.domain.models.AlbumModel import AlbumModel
 from app.domain.spi.IAlbumPersistencePort import IAlbumPersistencePort
-from app.infrastructure.outputs.sqlites.entities.AlbumEntity import AlbumEntity
-from app.infrastructure.outputs.sqlites.mappers.IAlbumEntityMapper import IAlbumEntityMapper
-from app.infrastructure.outputs.sqlites.repository.IAlbumRepository import IAlbumRepository
+from app.infrastructure.outputs.mysql.entities.AlbumEntity import AlbumEntity
+from app.infrastructure.outputs.mysql.mappers.IAlbumEntityMapper import IAlbumEntityMapper
+from app.infrastructure.outputs.mysql.repository.IAlbumRepository import IAlbumRepository
 
 
 class AlbumAdapter(IAlbumPersistencePort):

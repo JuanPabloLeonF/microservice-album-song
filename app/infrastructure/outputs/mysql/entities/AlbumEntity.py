@@ -1,6 +1,6 @@
-from app.infrastructure.outputs.sqlites.configurations.DatabaseConfiguration import db
+from app.infrastructure.outputs.mysql.configurations.DatabaseConfiguration import db
 import uuid
-from app.infrastructure.outputs.sqlites.entities.SongEntity import SongEntity
+from app.infrastructure.outputs.mysql.entities.SongEntity import SongEntity
 
 
 class AlbumEntity(db.Model):

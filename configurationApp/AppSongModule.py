@@ -6,12 +6,12 @@ from app.application.mappers.ISongResponseMapper import ISongResponseMapper
 from app.domain.apis.ISongServicePort import ISongServicePort
 from app.domain.spi.IAlbumPersistencePort import IAlbumPersistencePort
 from app.domain.useCases.SongUseCases import SongUseCase
-from app.infrastructure.outputs.sqlites.adapters.AlbumAdapter import AlbumAdapter
-from app.infrastructure.outputs.sqlites.adapters.SongAdapter import SongAdapter
-from app.infrastructure.outputs.sqlites.mappers.IAlbumEntityMapper import IAlbumEntityMapper
-from app.infrastructure.outputs.sqlites.mappers.ISongEntityMapper import ISongEntityMapper
-from app.infrastructure.outputs.sqlites.repository.ISongRepository import ISongRepository
-from app.infrastructure.outputs.sqlites.repository.SongRepositoryImplementation import \
+from app.infrastructure.outputs.mysql.adapters.AlbumAdapter import AlbumAdapter
+from app.infrastructure.outputs.mysql.adapters.SongAdapter import SongAdapter
+from app.infrastructure.outputs.mysql.mappers.IAlbumEntityMapper import IAlbumEntityMapper
+from app.infrastructure.outputs.mysql.mappers.ISongEntityMapper import ISongEntityMapper
+from app.infrastructure.outputs.mysql.repository.ISongRepository import ISongRepository
+from app.infrastructure.outputs.mysql.repository.SongRepositoryImplementation import \
     SongRepositoryImplementation
 from app.domain.spi.ISongPersistencePort import ISongPersistencePort
 from configurationApp.AppAlbumModule import AppAlbumModule

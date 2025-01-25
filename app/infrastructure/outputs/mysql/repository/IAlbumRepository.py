@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from app.infrastructure.outputs.sqlites.entities.AlbumEntity import AlbumEntity
+from app.infrastructure.outputs.mysql.entities.AlbumEntity import AlbumEntity
 
 class IAlbumRepository(ABC):
 

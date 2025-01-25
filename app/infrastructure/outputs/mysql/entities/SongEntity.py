@@ -1,6 +1,6 @@
 from enum import unique
 
-from app.infrastructure.outputs.sqlites.configurations.DatabaseConfiguration import db
+from app.infrastructure.outputs.mysql.configurations.DatabaseConfiguration import db
 from sqlalchemy import JSON
 import uuid
 

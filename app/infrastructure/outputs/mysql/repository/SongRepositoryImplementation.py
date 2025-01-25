@@ -1,10 +1,10 @@
 from app.domain.models.SongModel import SongModel
 from app.domain.utils.FileImgUtils import FileImgUtils
 from app.infrastructure.exceptions.ExceptionHandlersGlobal import ValidateData
-from app.infrastructure.outputs.sqlites.entities.AlbumEntity import AlbumEntity
-from app.infrastructure.outputs.sqlites.repository.ISongRepository import ISongRepository
-from app.infrastructure.outputs.sqlites.entities.SongEntity import SongEntity
-from app.infrastructure.outputs.sqlites.configurations.DatabaseConfiguration import db
+from app.infrastructure.outputs.mysql.entities.AlbumEntity import AlbumEntity
+from app.infrastructure.outputs.mysql.repository.ISongRepository import ISongRepository
+from app.infrastructure.outputs.mysql.entities.SongEntity import SongEntity
+from app.infrastructure.outputs.mysql.configurations.DatabaseConfiguration import db
 
 class SongRepositoryImplementation(ISongRepository):
 

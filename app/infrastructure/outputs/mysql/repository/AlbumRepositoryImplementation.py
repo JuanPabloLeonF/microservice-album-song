@@ -1,7 +1,7 @@
 from app.infrastructure.exceptions.ExceptionHandlersGlobal import ValidateData
-from app.infrastructure.outputs.sqlites.entities.AlbumEntity import AlbumEntity
-from app.infrastructure.outputs.sqlites.repository.IAlbumRepository import IAlbumRepository
-from app.infrastructure.outputs.sqlites.configurations.DatabaseConfiguration import db
+from app.infrastructure.outputs.mysql.entities.AlbumEntity import AlbumEntity
+from app.infrastructure.outputs.mysql.repository.IAlbumRepository import IAlbumRepository
+from app.infrastructure.outputs.mysql.configurations.DatabaseConfiguration import db
 from app.domain.utils.FileImgUtils import FileImgUtils
 
 class AlbumRepositoryImplementation(IAlbumRepository):

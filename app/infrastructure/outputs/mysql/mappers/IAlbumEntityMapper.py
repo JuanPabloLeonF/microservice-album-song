@@ -1,8 +1,8 @@
 from app.domain.models.AlbumModel import AlbumModel
 from app.domain.models.SongModel import SongModel
-from app.infrastructure.outputs.sqlites.entities.AlbumEntity import AlbumEntity
-from app.infrastructure.outputs.sqlites.entities.SongEntity import SongEntity
-from app.infrastructure.outputs.sqlites.mappers.ISongEntityMapper import ISongEntityMapper
+from app.infrastructure.outputs.mysql.entities.AlbumEntity import AlbumEntity
+from app.infrastructure.outputs.mysql.entities.SongEntity import SongEntity
+from app.infrastructure.outputs.mysql.mappers.ISongEntityMapper import ISongEntityMapper
 
 
 class IAlbumEntityMapper:

@@ -2,11 +2,12 @@ import os
 from flask import Flask
 from dotenv import load_dotenv
 from app.infrastructure.exceptions.ResponseErrorsHandlersGlobal import responseErrorsHandlersGlobal
-from app.infrastructure.outputs.sqlites.configurations.DatabaseConfiguration import init_app_db, db
+from app.infrastructure.outputs.mysql.configurations.DatabaseConfiguration import init_app_db, db
 
 load_dotenv()
 app = Flask(__name__)
-init_app_db(app)
+
+init_app_db(app=app, DATABASE_URL=os.getenv('DATABASE_URL'))
 
 responseErrorsHandlersGlobal(app)
 
