@@ -1,0 +1,9 @@
+fastapi==0.115.11
+pydantic==2.10.6
+pydantic[email]==2.10.6
+uvicorn==0.34.0
+injector==0.22.0
+SQLAlchemy==2.0.39
+bcrypt==4.3.0
+asyncmy==0.2.10
+cryptography==44.0.2

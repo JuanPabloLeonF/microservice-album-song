@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+
+  database-mysql-user:
+    image: mysql:9.1.0
+    container_name: database-mysql-user
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - cinemusic-microservices-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      interval: 10s
+      retries: 3
+
+  microservice-user:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: microservice-user
+    image: microservice-user:v1.0.0
+    env_file:
+      - .env
+    ports:
+      - "2000:2000"
+    volumes:
+      - ./app:/microservice-user/app
+      - ./main.py:/microservice-user/main.py
+      - ./requirements.txt:/microservice-user/requirements.txt
+    networks:
+      - cinemusic-microservices-network
+    depends_on:
+      database-mysql-user:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  cinemusic-microservices-network:
+    driver: bridge
+
+volumes:
+  db-data:
