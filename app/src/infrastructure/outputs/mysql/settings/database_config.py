@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.exc import OperationalError
-from app.configuration.enviroments_config import DATABASE_URL
+from app.configuration.enviroments_config import DATABASE_URL_DEV
 from app.configuration.exceptions_personalities import ErrorSessionDatabase
 
 class DatabaseConfiguration:
@@ -12,7 +12,7 @@ class DatabaseConfiguration:
     @classmethod
     async def configDatabase(cls):
         try:
-            cls._engine = create_async_engine(DATABASE_URL, echo=True, future=True)
+            cls._engine = create_async_engine(DATABASE_URL_DEV, echo=True, future=True)
             cls._SessionLocal = sessionmaker(
                 bind=cls._engine,
                 class_=AsyncSession,

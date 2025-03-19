@@ -1,11 +1,11 @@
 import os
 
 HOST: str = os.getenv("HOST", "0.0.0.0")
-PORT: int = int(os.getenv("PORT", "2000"))
+PORT: int = int(os.getenv("PORT", "2002"))
 DEBUG: bool = os.getenv("DEBUG", "False") == "True"
 
 VERSION: str = os.getenv("VERSION", "1.0.0")
-TITLE: str = os.getenv("TITLE", "MICROSERVICE-USER")
+TITLE: str = os.getenv("TITLE", "MICROSERVICE-ALBUM-SONG")
 
 DATABASE_URL: str = os.getenv("DATABASE_URL", "")
 DATABASE_URL_DEV: str = os.getenv("DATABASE_URL_DEV", "")
