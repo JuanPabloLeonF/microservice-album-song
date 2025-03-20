@@ -1,9 +1,9 @@
 from starlette.routing import BaseRoute
 
-from app.src.infrastructure.inputs.rest.controllers.controller_user import routerUser
+from app.src.infrastructure.inputs.rest.controllers.song_controller import songRouter
 
 class ConfigurationRouter:
 
     @staticmethod
     def registerRouters() -> list[BaseRoute]:
-        return list(routerUser.routes)
+        return list(songRouter.routes)

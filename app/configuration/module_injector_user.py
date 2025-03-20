@@ -1,39 +1,43 @@
 from injector import singleton, provider, Module
-from app.src.application.handlers.i_handler_user import IHandlerUser
-from app.src.application.handlers.implementation_handler_user import ImplementationHandlerUser
-from app.src.application.mappers.i_mapper_handler import IMapperHandler
-from app.src.domain.persistence.i_persistence_port_user import IPersistencePortUser
-from app.src.domain.services.i_services_port_user import IServicesPortUser
-from app.src.domain.useCases.use_case_user import UseCaseUser
-from app.src.infrastructure.outputs.mysql.adapters.adapter_user import AdapterUser
-from app.src.infrastructure.outputs.mysql.mappers.i_mappers_user import IMapperUser
-from app.src.infrastructure.outputs.mysql.repositories.i_repository_user import IUserRepository
-from app.src.infrastructure.outputs.mysql.repositories.implementation_repository_user import ImplementationUserRepository
 
-class ModuleInjectorUser(Module):
+from app.src.application.handlers.i_handler_song import ISongHandler
+from app.src.application.handlers.implementation_handler_song import ImplementationSongHandler
+from app.src.application.mappers.i_mapper_song_application import IMapperSongApplication
+from app.src.domain.persistence.i_persistence_song import ISongPersistence
+from app.src.domain.services.i_service_song import ISongService
+from app.src.domain.useCases.use_case_song import UseCaseSong
+from app.src.infrastructure.inputs.rest.mappers.i_mapper_song_controller import IMapperSongController
+from app.src.infrastructure.outputs.mysql.adapters.adatper_song import AdapterSong
+from app.src.infrastructure.outputs.mysql.mappers.i_mapper_song_entity import IMapperSongEntity
+from app.src.infrastructure.outputs.mysql.repositories.i_song_repository import ISongRepository
+from app.src.infrastructure.outputs.mysql.repositories.implementation_song_repository import \
+    ImplementationSongRepository
+
+
+class ModuleInjectorSong(Module):
 
     @singleton
     @provider
-    def providerIUserRepository(self) -> IUserRepository:
-        return ImplementationUserRepository()
+    def providerISongRepository(self) -> ISongRepository:
+        return ImplementationSongRepository()
 
     @singleton
     @provider
-    def providerIPersistencePortUser(self) -> IPersistencePortUser:
-        return AdapterUser(
-            iMapperUser=IMapperUser(),
-            iUserRepository=self.providerIUserRepository()
+    def providerIPersistencePortSong(self) -> ISongPersistence:
+        return AdapterSong(
+            iSongRepository=self.providerISongRepository(),
+            iMapperSongEntity=IMapperSongEntity()
         )
 
     @singleton
     @provider
-    def providerIServicePortUser(self) -> IServicesPortUser:
-        return UseCaseUser(iPersistencePortUser=self.providerIPersistencePortUser())
+    def providerIServicePortSong(self) -> ISongService:
+        return UseCaseSong(iSongPersistence=self.providerIPersistencePortSong())
 
     @singleton
     @provider
-    def providerIHandlerUser(self) -> IHandlerUser:
-        return ImplementationHandlerUser(
-            iMapperHandler=IMapperHandler(),
-            iServicesPortUser=self.providerIServicePortUser()
+    def providerIHandlerSong(self) -> ISongHandler:
+        return ImplementationSongHandler(
+            iSongService=self.providerIServicePortSong(),
+            iMapperSongApplication=IMapperSongApplication()
         )

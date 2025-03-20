@@ -1,6 +1,5 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-
 from app.configuration.exceptions_personalities import ErrorSessionDatabase
 from app.src.infrastructure.outputs.mysql.settings.database_config import DatabaseConfiguration
 

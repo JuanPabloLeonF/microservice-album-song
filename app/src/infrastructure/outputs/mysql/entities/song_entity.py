@@ -56,5 +56,5 @@ class SongEntity(DatabaseConfiguration.BaseModels):
             "gender": self.gender,
             "imgCoverUrl": self.imgCoverUrl,
             "albumId": self.albumId,
-            "musicUrl": self.musicUrl
+            "musicFile": self.musicUrl
         }

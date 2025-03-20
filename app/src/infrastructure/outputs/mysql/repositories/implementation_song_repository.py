@@ -3,6 +3,7 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from app.src.infrastructure.outputs.mysql.entities.song_entity import SongEntity
 from app.src.infrastructure.outputs.mysql.repositories.i_song_repository import ISongRepository
 from app.src.infrastructure.outputs.mysql.settings.database_config import DatabaseConfiguration
+from app.src.application.utils.utils_file_application import UtilsFilesApplication
 
 class ImplementationSongRepository(ISongRepository):
 
@@ -49,9 +50,13 @@ class ImplementationSongRepository(ISongRepository):
             try:
                 result = await session.get(SongEntity, id)
                 if not result:
-                    #Acuerdate de poner la funcion para eliminar la imagen y video cuando todo falle
+                    UtilsFilesApplication.deletedFile(filePath=song.getMusicUrl())
+                    UtilsFilesApplication.deletedFile(filePath=song.getImgCoverUrl())
                     raise ValueError(f"song not found with the id: {id}")
-                # Acuerdate de poner la funcion para eliminar la imagen y video cuando todo este bien
+
+                UtilsFilesApplication.deletedFile(filePath=result.musicUrl)
+                UtilsFilesApplication.deletedFile(filePath=result.imgCoverUrl)
+
                 result.name = song.name
                 result.singer = song.singer
                 result.duration = song.duration

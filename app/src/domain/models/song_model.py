@@ -54,8 +54,8 @@ class SongModel:
     def setAlbumId(self, albumId: str):
         self.__albumId = albumId
 
-    def __str__(self):
-        return f"Id: {self.__id}, Name: {self.__name}, Singer: {self.__singer}, Duration: {self.__duration}, Gender: {self.__gender}, ImgUrl: {self.__imgCoverUrl}, AlbumId: {self.__albumId}"
+    def setMusicUrl(self, musicUrl: str):
+        self.musicUrl = musicUrl
 
     def getJSON(self):
         return {
@@ -65,5 +65,6 @@ class SongModel:
             "duration": self.__duration,
             "gender": self.__gender,
             "imgCoverUrl": self.__imgCoverUrl,
-            "albumId": self.__albumId
+            "albumId": self.__albumId,
+            "musicFile": self.musicUrl
         }
