@@ -6,7 +6,7 @@ class SongRequestForm:
         self,
         name: str = Form(min_length=3, max_length=200),
         singer: str = Form(min_length=5, max_length=200),
-        duration: int = Form(min_length=1, max_length=10),
+        duration: int = Form(),
         gender: str = Form(),
         albumId: str = Form(),
         imgFile: UploadFile = File(),

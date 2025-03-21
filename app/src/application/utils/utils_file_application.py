@@ -1,18 +1,28 @@
 import os
 import uuid
+import base64
 from fastapi import UploadFile
 from app.configuration.enviroments_config import ALLOW_EXTENSIONS_FILE_IMG, ALLOW_EXTENSIONS_FILE_MUSIC, MAX_SIZE_IMG_FILE_MB, MAX_SIZE_MUSIC_FILE_MB
 
 class UtilsFilesApplication:
 
     @staticmethod
+    def convertFileToBase64(filePath: str) -> str:
+        if not os.path.exists(filePath):
+            raise ValueError("File not found")
+        with open(filePath, "rb") as file:
+            return base64.b64encode(file.read()).decode("utf-8")
+
+    @staticmethod
     def createFolder(folderName: str) -> None:
         os.makedirs(name=folderName, exist_ok=True)
 
     @staticmethod
-    def validateExtensionFile(file: UploadFile, listExtensions: list[str]) -> None:
+    def validateExtensionFile(imgUrl: str, file: UploadFile, listExtensions: list[str]) -> None:
         extension: str = UtilsFilesApplication.getExtensionsFile(file=file)
         if extension not in listExtensions:
+            if imgUrl:
+                UtilsFilesApplication.deletedFile(filePath=imgUrl)
             raise ValueError("Invalid file extension")
 
     @staticmethod
@@ -44,9 +54,10 @@ class UtilsFilesApplication:
             os.remove(filePath)
 
     @staticmethod
-    def saveFile(file: UploadFile, folderName: str) -> str:
+    def saveFile(file: UploadFile, folderName: str, imgUrl: str = None) -> str:
 
         UtilsFilesApplication.validateExtensionFile(
+            imgUrl=imgUrl,
             file=file,
             listExtensions=ALLOW_EXTENSIONS_FILE_IMG + ALLOW_EXTENSIONS_FILE_MUSIC
         )

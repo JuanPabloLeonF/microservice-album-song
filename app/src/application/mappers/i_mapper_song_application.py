@@ -1,6 +1,7 @@
 from app.src.application.dto.request_song import RequestSong
 from app.src.application.dto.response_song import ResponseSong
 from app.src.domain.models.song_model import SongModel
+from app.src.application.utils.utils_file_application import UtilsFilesApplication
 
 class IMapperSongApplication:
 
@@ -26,8 +27,8 @@ class IMapperSongApplication:
             duration=songModel.getDuration(),
             gender=songModel.getGender(),
             imgCoverUrl=songModel.getImgCoverUrl(),
-            albumId=songModel.getAlbumId(),
-            musicUrl=songModel.getMusicUrl()
+            albumId=UtilsFilesApplication.convertFileToBase64(filePath=songModel.getImgCoverUrl()),
+            musicUrl=UtilsFilesApplication.convertFileToBase64(filePath=songModel.getMusicUrl())
         )
 
     @staticmethod

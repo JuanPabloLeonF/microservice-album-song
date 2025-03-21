@@ -19,7 +19,11 @@ class DatabaseConfiguration:
                 expire_on_commit=False
             )
             async with cls._engine.begin() as conn:
-                await conn.run_sync(cls.BaseModels.metadata.create_all)
+                from app.src.infrastructure.outputs.mysql.entities.album_entity import AlbumEntity
+                from app.src.infrastructure.outputs.mysql.entities.song_entity import SongEntity
+                await conn.run_sync(AlbumEntity.metadata.create_all, checkfirst=True)
+                await conn.run_sync(SongEntity.metadata.create_all, checkfirst=True)
+
         except OperationalError as error:
             cls._engine = None
             cls._SessionLocal = None

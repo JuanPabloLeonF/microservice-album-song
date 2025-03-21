@@ -7,3 +7,5 @@ bcrypt==4.3.0
 asyncmy==0.2.10
 cryptography==44.0.2
 aiosqlite==0.21.0
+python-multipart==0.0.20
+python-dotenv

@@ -15,7 +15,7 @@ iMapperSongController: IMapperSongController =IMapperSongController()
 class SongController:
 
     @staticmethod
-    @songRouter.post("/all/{page}/{limit}", status_code=200)
+    @songRouter.get("/all/{page}/{limit}", status_code=200)
     async def getAll(page: int, limit: int):
         response: list[ResponseSong] = await iHandler.getAll(page=page, limit=limit)
         return JSONResponse(content=response, status_code=200)
@@ -27,7 +27,7 @@ class SongController:
         return JSONResponse(content=response, status_code=200)
 
     @staticmethod
-    @songRouter.get("/id/{id}", status_code=200)
+    @songRouter.get("/getById/{id}", status_code=200)
     async def getById(id: str):
         response: ResponseSong = await iHandler.getById(id=id)
         return JSONResponse(content=response, status_code=200)
@@ -40,14 +40,14 @@ class SongController:
         return JSONResponse(content=response, status_code=201)
 
     @staticmethod
-    @songRouter.put("/update/{id}", status_code=200)
+    @songRouter.put("/updateById/{id}", status_code=200)
     async def updateById(id: str, request: SongRequestForm = Depends(SongRequestForm)):
         requestSong: RequestSong = iMapperSongController.mapperSongRequestFormToRequestSong(request)
         response: ResponseSong = await iHandler.updateById(request=requestSong, id=id)
         return JSONResponse(content=response, status_code=200)
 
     @staticmethod
-    @songRouter.delete("/delete/{id}", status_code=200)
+    @songRouter.delete("/deleteById/{id}", status_code=200)
     async def deleteById(id: str):
         response: str = await iHandler.deleteById(id=id)
         return JSONResponse(content=response, status_code=200)

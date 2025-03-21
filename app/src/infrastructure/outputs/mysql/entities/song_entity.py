@@ -3,6 +3,7 @@ from sqlalchemy import JSON,Column, Integer, String, ForeignKey
 from app.src.infrastructure.outputs.mysql.settings.database_config import DatabaseConfiguration
 
 class SongEntity(DatabaseConfiguration.BaseModels):
+
     __tablename__  = 'song'
 
     id = Column(String(20), primary_key=True, default=lambda: str(uuid.uuid4()))
@@ -10,9 +11,9 @@ class SongEntity(DatabaseConfiguration.BaseModels):
     singer = Column(String(255), nullable=False)
     duration = Column(Integer, nullable=False)
     gender = Column(JSON, nullable=False)
-    imgCoverUrl = Column(String(50), unique=True, nullable=False)
-    musicUrl = Column(String(50), unique=True, nullable=False)
-    albumId = Column(String(36), ForeignKey('album.id', ondelete='CASCADE'), nullable=False)
+    imgCoverUrl = Column(String(100), unique=True, nullable=False)
+    musicUrl = Column(String(100), unique=True, nullable=False)
+    albumId = Column(String(20), ForeignKey('album.id', ondelete='CASCADE'), nullable=False)
 
     def __init__(self, name: str, singer: str, duration: int, gender: list[str], albumId: str, imgCoverUrl: str, musicUrl: str):
         self.name = name

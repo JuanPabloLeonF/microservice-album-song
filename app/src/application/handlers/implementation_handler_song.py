@@ -13,23 +13,27 @@ class ImplementationSongHandler(ISongHandler):
         self.iMapperSongApplication: IMapperSongApplication = iMapperSongApplication
 
     async def getAll(self, page: int, limit: int) -> list[ResponseSong]:
-        return self.iMapperSongApplication.mapperListSongModelToListResponseSong(
+        data: list[ResponseSong] = self.iMapperSongApplication.mapperListSongModelToListResponseSong(
              listSongModel=await self.iSongService.getAll(page=page, limit=limit)
         )
+        return [song.getJSON() for song in data]
+
 
     async def getById(self, id: str) -> ResponseSong:
-        return self.iMapperSongApplication.mapperSongModelToResponseSong(
+        data: ResponseSong = self.iMapperSongApplication.mapperSongModelToResponseSong(
             songModel= await self.iSongService.getById(id=id)
         )
+        return data.getJSON()
 
     async def getByGender(self, gender: str, page: int, limit: int) -> list[ResponseSong]:
-        return self.iMapperSongApplication.mapperListSongModelToListResponseSong(
+        data: list[ResponseSong] = self.iMapperSongApplication.mapperListSongModelToListResponseSong(
             listSongModel= await self.iSongService.getByGender(gender=gender, page=page, limit=limit)
         )
+        return [song.getJSON() for song in data]
 
     async def create(self, request: RequestSong) -> ResponseSong:
         imgCoverUrl: str = UtilsFilesApplication.saveFile(file=request.imgCoverFile, folderName="files/images")
-        musicUrl: str = UtilsFilesApplication.saveFile(file=request.musicFile, folderName="files/music")
+        musicUrl: str = UtilsFilesApplication.saveFile(imgUrl=imgCoverUrl ,file=request.musicFile, folderName="files/music")
         songModel: SongModel = self.iMapperSongApplication.mapperRequestSongToSongModel(requestSong=request, imgCoverUrl=imgCoverUrl, musicUrl=musicUrl)
         songResponse: ResponseSong = self.iMapperSongApplication.mapperSongModelToResponseSong(
             songModel=await self.iSongService.create(song=songModel)
@@ -38,7 +42,7 @@ class ImplementationSongHandler(ISongHandler):
 
     async def updateById(self, request: RequestSong, id: str) -> ResponseSong:
         imgCoverUrl: str = UtilsFilesApplication.saveFile(file=request.imgCoverFile, folderName="files/images")
-        musicUrl: str = UtilsFilesApplication.saveFile(file=request.musicFile, folderName="files/music")
+        musicUrl: str = UtilsFilesApplication.saveFile(imgUrl=imgCoverUrl, file=request.musicFile, folderName="files/music")
         songModel: SongModel = self.iMapperSongApplication.mapperRequestSongToSongModel(requestSong=request, imgCoverUrl=imgCoverUrl, musicUrl=musicUrl)
         songResponse: ResponseSong = self.iMapperSongApplication.mapperSongModelToResponseSong(
             songModel=await self.iSongService.updateById(song=songModel, id=id)

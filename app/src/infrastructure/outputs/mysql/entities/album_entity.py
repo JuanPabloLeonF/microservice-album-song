@@ -1,8 +1,8 @@
 import uuid
-from sqlalchemy import Column, String, relationship
-from app.src.infrastructure.outputs.mysql.entities.song_entity import SongEntity
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 from app.src.infrastructure.outputs.mysql.settings.database_config import DatabaseConfiguration
-
+from app.src.infrastructure.outputs.mysql.entities.song_entity import SongEntity
 
 class AlbumEntity(DatabaseConfiguration.BaseModels):
     __tablename__ = 'album'
@@ -13,9 +13,15 @@ class AlbumEntity(DatabaseConfiguration.BaseModels):
     dateCreation = Column(String(36), nullable=False)
     description = Column(String(255), nullable=False)
     imageCoverUrl = Column(String(255), nullable=False)
-    songs = relationship('SongEntity', backref='album', lazy=True, cascade="all, delete")
+    songs = relationship(
+        argument='SongEntity',
+        backref='album',
+        lazy=True,
+        cascade="all, delete",
+        uselist=True
+    )
 
-    def __init__(self , name: str, author: str, dateCreation: str, description: str, imageCoverUrl: str, songs: list[SongEntity]):
+    def __init__(self, name: str, author: str, dateCreation: str, description: str, imageCoverUrl: str, songs: list[SongEntity]):
         self.name = name
         self.author = author
         self.dateCreation = dateCreation

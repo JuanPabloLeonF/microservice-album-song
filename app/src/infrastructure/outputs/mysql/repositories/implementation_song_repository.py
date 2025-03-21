@@ -1,5 +1,7 @@
 from sqlalchemy.future import select
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+
+from app.src.infrastructure.outputs.mysql.entities.album_entity import AlbumEntity
 from app.src.infrastructure.outputs.mysql.entities.song_entity import SongEntity
 from app.src.infrastructure.outputs.mysql.repositories.i_song_repository import ISongRepository
 from app.src.infrastructure.outputs.mysql.settings.database_config import DatabaseConfiguration
@@ -20,7 +22,7 @@ class ImplementationSongRepository(ISongRepository):
         async with DatabaseConfiguration.getSession() as session:
             result = await session.execute(
                 select(SongEntity).
-                where(SongEntity.category.contains(gender)).
+                where(SongEntity.gender.contains(gender)).
                 limit(limit).
                 offset((page - 1) * limit)
             )
@@ -36,13 +38,22 @@ class ImplementationSongRepository(ISongRepository):
     async def create(self, song: SongEntity) -> SongEntity:
         async with DatabaseConfiguration.getSession() as session:
             try:
+
+                albumExist = await session.get(AlbumEntity, song.albumId)
+                if not albumExist:
+                    UtilsFilesApplication.deletedFile(filePath=song.imgCoverUrl)
+                    UtilsFilesApplication.deletedFile(filePath=song.musicUrl)
+                    raise ValueError(f"album not found with the id: {song.albumId}")
+
                 session.add(song)
                 await session.commit()
                 await session.refresh(song)
                 return song
             except IntegrityError as error:
+                await session.rollback()
                 raise ValueError(str(error))
             except SQLAlchemyError as error:
+                await session.rollback()
                 raise RuntimeError(str(error))
 
     async def updateById(self, song: SongEntity, id: str) -> SongEntity:
@@ -68,8 +79,10 @@ class ImplementationSongRepository(ISongRepository):
                 await session.refresh(result)
                 return result
             except IntegrityError as error:
+                await session.rollback()
                 raise ValueError(str(error))
             except SQLAlchemyError as error:
+                await session.rollback()
                 raise RuntimeError(str(error))
 
     async def deleteById(self, id: str) -> str:
@@ -78,10 +91,15 @@ class ImplementationSongRepository(ISongRepository):
                 result = await session.get(SongEntity, id)
                 if not result:
                     raise ValueError(f"song not found with the id: {id}")
+
+                UtilsFilesApplication.deletedFile(filePath=result.musicUrl)
+                UtilsFilesApplication.deletedFile(filePath=result.imgCoverUrl)
                 await session.delete(result)
                 await session.commit()
                 return "Song deleted successfully"
             except IntegrityError as error:
+                await session.rollback()
                 raise ValueError(str(error))
             except SQLAlchemyError as error:
+                await session.rollback()
                 raise RuntimeError(str(error))
