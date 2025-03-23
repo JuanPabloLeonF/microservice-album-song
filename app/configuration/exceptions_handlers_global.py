@@ -10,10 +10,21 @@ class ErrorsHandlersGlobals:
 
     @staticmethod
     def errorHandlerRequestValidationError(request: Request, exception: RequestValidationError) -> JSONResponse:
+
+        errorMessage: dict = {}
+
+        for error in exception.errors():
+            errorMessage = {
+                "type": error.get("type"),
+                "loc": error.get("loc"),
+                "msg": error.get("msg"),
+                "input": error.get("input")
+            }
+
         responseError: ResponseError = ResponseError(
             status="BAD_REQUEST",
             statusCode=status.HTTP_400_BAD_REQUEST,
-            messageError=str(exception)
+            messageError=str(errorMessage)
         )
         return JSONResponse(content=responseError.getJSON(), status_code=status.HTTP_400_BAD_REQUEST)
 

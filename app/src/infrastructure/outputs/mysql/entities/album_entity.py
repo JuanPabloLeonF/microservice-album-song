@@ -7,7 +7,7 @@ from app.src.infrastructure.outputs.mysql.entities.song_entity import SongEntity
 class AlbumEntity(DatabaseConfiguration.BaseModels):
     __tablename__ = 'album'
 
-    id = Column(String(20), primary_key=True, default=lambda: str(uuid.uuid4()))
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = Column(String(255), nullable=False)
     author = Column(String(255), nullable=False)
     dateCreation = Column(String(36), nullable=False)
@@ -16,7 +16,7 @@ class AlbumEntity(DatabaseConfiguration.BaseModels):
     songs = relationship(
         argument='SongEntity',
         backref='album',
-        lazy=True,
+        lazy="selectin",
         cascade="all, delete",
         uselist=True
     )
@@ -58,5 +58,5 @@ class AlbumEntity(DatabaseConfiguration.BaseModels):
             "dateCreation": self.dateCreation,
             "description": self.description,
             "imageCoverUrl": self.imageCoverUrl,
-            "songs": self.songs
+            "songs": [song.getJSON() for song in self.songs]
         }

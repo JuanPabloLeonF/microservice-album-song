@@ -38,14 +38,3 @@ class SongRequestForm:
             return data
         except (ValueError, json.JSONDecodeError):
             raise ValueError("gender must be a list of strings")
-
-    def getJSON(self) -> dict:
-        return {
-            "name": self.name,
-            "singer": self.singer,
-            "duration": self.duration,
-            "gender": self.gender,
-            "albumId": self.albumId,
-            "imgFile": self.imgFile.filename,
-            "musicFile": self.musicFile.filename
-        }

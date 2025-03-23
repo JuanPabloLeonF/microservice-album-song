@@ -26,8 +26,8 @@ class IMapperSongApplication:
             singer=songModel.getSinger(),
             duration=songModel.getDuration(),
             gender=songModel.getGender(),
-            imgCoverUrl=songModel.getImgCoverUrl(),
-            albumId=UtilsFilesApplication.convertFileToBase64(filePath=songModel.getImgCoverUrl()),
+            imgCoverUrl=UtilsFilesApplication.convertFileToBase64(filePath=songModel.getImgCoverUrl()),
+            albumId=songModel.getAlbumId(),
             musicUrl=UtilsFilesApplication.convertFileToBase64(filePath=songModel.getMusicUrl())
         )
 

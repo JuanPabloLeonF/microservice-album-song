@@ -16,7 +16,8 @@ class ImplementationSongRepository(ISongRepository):
                 limit(limit).
                 offset((page - 1) * limit)
             )
-            return result.scalars().all()
+            listSongs = result.scalars().all()
+            return [song for song in listSongs]
 
     async def getByGender(self, gender: str, page: int, limit: int) -> list[SongEntity]:
         async with DatabaseConfiguration.getSession() as session:
@@ -26,12 +27,13 @@ class ImplementationSongRepository(ISongRepository):
                 limit(limit).
                 offset((page - 1) * limit)
             )
-            return result.scalars().all()
+            listSongs = result.scalars().all()
+            return [song for song in listSongs]
 
     async def getById(self, id: str) -> SongEntity:
         async with DatabaseConfiguration.getSession() as session:
-            result = await session.get(SongEntity, id)
-            if not result:
+            result: SongEntity | None = await session.get(SongEntity, id)
+            if result is None:
                 raise ValueError(f"song not found with the id: {id}")
             return result
 
@@ -59,8 +61,8 @@ class ImplementationSongRepository(ISongRepository):
     async def updateById(self, song: SongEntity, id: str) -> SongEntity:
         async with DatabaseConfiguration.getSession() as session:
             try:
-                result = await session.get(SongEntity, id)
-                if not result:
+                result: SongEntity | None = await session.get(SongEntity, id)
+                if result is None:
                     UtilsFilesApplication.deletedFile(filePath=song.getMusicUrl())
                     UtilsFilesApplication.deletedFile(filePath=song.getImgCoverUrl())
                     raise ValueError(f"song not found with the id: {id}")

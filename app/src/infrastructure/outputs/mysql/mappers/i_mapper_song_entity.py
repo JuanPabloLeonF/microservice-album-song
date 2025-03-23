@@ -31,3 +31,7 @@ class IMapperSongEntity:
     @staticmethod
     def mapperListSongEntityToListSongModel(listSongEntity: list[SongEntity]) -> list[SongModel]:
         return [IMapperSongEntity.mapperSongEntityToSongModel(songEntity) for songEntity in listSongEntity]
+
+    @staticmethod
+    def mapperListSongModelToListSongEntity(listSongModel: list[SongModel]) -> list[SongEntity]:
+        return [IMapperSongEntity.mapperSongModelToSongEntity(songModel) for songModel in listSongModel]

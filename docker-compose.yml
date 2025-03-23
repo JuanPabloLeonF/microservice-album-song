@@ -2,9 +2,9 @@ version: "3"
 
 services:
 
-  database-mysql-user:
+  database-mysql-album-song:
     image: mysql:9.1.0
-    container_name: database-mysql-user
+    container_name: database-mysql-album-song
     env_file:
       - .env
     environment:
@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "3306:3306"
+      - "3308:3306"
     volumes:
       - db-data:/var/lib/mysql
     networks:
@@ -25,16 +25,16 @@ services:
       interval: 10s
       retries: 3
 
-  microservice-user:
+  microservice-album-song:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: microservice-user
-    image: microservice-user:v1.0.0
+    container_name: microservice-album-song
+    image: microservice-album-song:v1.0.0
     env_file:
       - .env
     ports:
-      - "2000:2000"
+      - "2002:2002"
     volumes:
       - ./app:/microservice-user/app
       - ./main.py:/microservice-user/main.py
@@ -42,7 +42,7 @@ services:
     networks:
       - cinemusic-microservices-network
     depends_on:
-      database-mysql-user:
+      database-mysql-album-song:
         condition: service_healthy
     restart: unless-stopped
 
