@@ -65,7 +65,7 @@ El modelo de canción incluye los siguientes campos y características:
 | `imgCoverUrl`  | `string`     | URL de la imagen de portada | ✅ | Mínimo 10 caracteres, único |
 | `musicUrl`     | `string`     | URL del archivo de música | ✅ | Mínimo 10 caracteres, único |
 
-## 🔄 Relación entre Álbum y Canción
+### 🔄 Relación entre Álbum y Canción
 Cada álbum puede contener múltiples canciones, y cada canción pertenece a un solo álbum. La relación se establece a través del campo `albumId` en el modelo de canción, que hace referencia al `id` del álbum correspondiente.
 
 ### Características de la Relación
