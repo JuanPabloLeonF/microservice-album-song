@@ -1,7 +1,7 @@
 import injector
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
-from app.configuration.module_injector_user import ModuleInjectorSong
+from app.configuration.module_injector_song import ModuleInjectorSong
 from app.src.application.dto.request_song import RequestSong
 from app.src.application.dto.response_song import ResponseSong
 from app.src.infrastructure.inputs.rest.dto.request_song_controller import SongRequestForm

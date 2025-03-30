@@ -6,7 +6,6 @@ from app.src.application.mappers.i_mapper_song_application import IMapperSongApp
 from app.src.domain.persistence.i_persistence_song import ISongPersistence
 from app.src.domain.services.i_service_song import ISongService
 from app.src.domain.useCases.use_case_song import UseCaseSong
-from app.src.infrastructure.inputs.rest.mappers.i_mapper_song_controller import IMapperSongController
 from app.src.infrastructure.outputs.mysql.adapters.adatper_song import AdapterSong
 from app.src.infrastructure.outputs.mysql.mappers.i_mapper_song_entity import IMapperSongEntity
 from app.src.infrastructure.outputs.mysql.repositories.i_song_repository import ISongRepository
